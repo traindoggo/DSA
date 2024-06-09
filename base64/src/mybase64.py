@@ -137,19 +137,21 @@ class Base64:
     }
 
     @classmethod
+    def fill_padding(cls, s: str, margin: int, pad: str) -> str:
+        diff = margin - len(s)
+        s += pad * diff
+        return s
+
+    @classmethod
     def str_to_bit(cls, b: bytes) -> str:
         _bit = ["{0:>08b}".format(ord(ch)) for ch in b.decode("utf-8")]
         return "".join(_bit)
 
     @classmethod
     def split(cls, bits: List[str]) -> List[str]:
-        return [bits[i : i + 6] for i in range(0, len(bits), 6)]
-
-    @classmethod
-    def fill_padding(cls, s: str, margin: int, pad: str) -> str:
-        diff = margin - len(s)
-        s += pad * diff
-        return s
+        splitted = [bits[i : i + 6] for i in range(0, len(bits), 6)]
+        splitted[-1] = cls.fill_padding(splitted[-1], 6, "0")
+        return splitted
 
     @classmethod
     def convert(cls, bits: List[str]) -> str:
@@ -162,7 +164,5 @@ class Base64:
     def base64encode(cls, plain: bytes):
         bits = cls.str_to_bit(plain)
         splitted = cls.split(bits)
-        splitted[-1] = cls.fill_padding(splitted[-1], 6, "0")
         res = cls.convert(splitted)
-
         return res
