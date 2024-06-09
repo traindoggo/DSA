@@ -69,7 +69,13 @@ class TestEncode:
             assert got == want
 
     def test_base64encode(self):
-        testcases = [b"abcdefg", b"ABCDEFG"]
+        testcases = [
+            b"abcdefg",
+            b"ABCDEFG",
+            b"helloworld",
+            b"hogehogemaster",
+            b"base64",
+        ]
 
         for plain in testcases:
             got = base64.b64encode(plain)
