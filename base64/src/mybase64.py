@@ -158,11 +158,11 @@ class Base64:
         chs = [cls.BIT_TO_CH[bit] for bit in bits]
         res = ["".join(chs[i : i + 4]) for i in range(0, len(chs), 4)]
         res[-1] = cls.fill_padding(res[-1], 4, "=")
-        return ("".join(res)).encode("utf-8")
+        return "".join(res)
 
     @classmethod
-    def base64encode(cls, plain: bytes):
+    def base64encode(cls, plain: bytes) -> bytes:
         bits = cls.str_to_bit(plain)
         splitted = cls.split(bits)
         res = cls.convert(splitted)
-        return res
+        return res.encode("utf-8")

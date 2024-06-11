@@ -60,7 +60,7 @@ class TestEncode:
                     "010001",
                     "110000",
                 ],
-                b"QUJDREVGRw==",
+                "QUJDREVGRw==",
             )
         ]
 
